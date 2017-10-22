@@ -35,7 +35,7 @@ def getinfo(church_name, location, postalcode):
         return place
 
 
-def handler_event():
+def handler_event(event, context):
     db = MySQLdb.connect(user="MovementAdmin", passwd="CityMovement!", host="movementmap.cjtdrwjqblil.us-east-1.rds.amazonaws.com", db= "MovementMap")
     cursor = db.cursor()
     cursor.execute('SELECT Legal_Name, S, Postal_Code FROM MovementMapExcelImport WHERE Legal_Name LIKE (\'%church%\') ORDER BY Rev_2014 DESC')
@@ -61,7 +61,4 @@ def handler_event():
             if twitter_url:
                web_json['twitter'] = twitter_url
             info_json.append(web_json)
-
     return info_json
-            
-print(handler_event())
